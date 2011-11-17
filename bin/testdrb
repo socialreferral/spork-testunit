@@ -10,8 +10,11 @@ rescue LoadError
   require 'test/unit/failure'
 end
 
+drbport = 8988
+ARGV.delete_if {|arg| drbport = arg.split('=')[1] if arg.start_with?('drbport=')}
+
 require 'drb'
 DRb.start_service("druby://127.0.0.1:0") # this allows Ruby to do some magical stuff so you can pass an output stream over DRb.
-test_server = DRbObject.new_with_uri("druby://127.0.0.1:8988")
+test_server = DRbObject.new_with_uri("druby://127.0.0.1:#{drbport}")
 result = test_server.run(ARGV, $stderr, $stdout)
 
