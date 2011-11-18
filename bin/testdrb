@@ -11,7 +11,7 @@ rescue LoadError
 end
 
 drbport = 8988
-ARGV.delete_if {|arg| drbport = arg.split('=')[1] if arg.start_with?('drbport=')}
+ARGV.delete_if {|arg| drbport = arg.split('=')[1] if arg.start_with?('--port=')}
 
 require 'drb'
 DRb.start_service("druby://127.0.0.1:0") # this allows Ruby to do some magical stuff so you can pass an output stream over DRb.
